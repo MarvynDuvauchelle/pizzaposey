@@ -1,0 +1,32 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Gestionnaire de pizzas",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha Tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarvynDuvauchelle/PizzaProject.git"
+  },
+  "author": "Marvyn Duvauchelle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarvynDuvauchelle/PizzaProject/issues"
+  },
+  "homepage": "https://github.com/MarvynDuvauchelle/PizzaProject#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "colors": "^1.1.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsdoc": "^3.5.5",
+    "jsonwebtoken": "^8.1.0",
+    "mocha": "^4.0.1",
+    "mongoose": "^4.12.3",
+    "socket.io": "^2.0.3"
+  }
+}

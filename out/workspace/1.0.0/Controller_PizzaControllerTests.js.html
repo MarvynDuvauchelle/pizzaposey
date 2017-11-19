@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Controller/PizzaControllerTests.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Controller/PizzaControllerTests.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+ /**
+ * TestsController Pizza
+ * @module pizza
+ */
+ 
+ /**
+ * @requires TestsController
+ */
+const chai = require('chai');
+const assert = chai.assert;
+const https = require('https');
+const querystring = require('querystring');
+const chaiHttp = require('chai-http');
+const Pizza = require('../Model/pizza');
+const Ingredient = require('../Model/ingredient');
+chai.use(chaiHttp);
+
+const url = 'https://pizzaposey-marvyn.c9users.io';
+
+describe('Test Pizza', () => {
+  /** Test pour ajouter une pizza */
+    it('should get a new pizza object', (done) => {
+        let ingredient = new Ingredient({ name : 'ingredientTest', weight: 'weightTest', price:'priceTest' });
+          ingredient.save().then((ingredient)=>{
+          chai.request(url)
+            .post('/pizza')
+            .send({
+                name: 'nomTest',
+                desc: 'descTest',
+                price: 10,
+                picture: 'pictureTest',
+                ingredients: [
+                    ingredient._id
+                    ]
+            })
+            .end((err, res, statusCode) => {
+              if (err) done(err);
+              assert.strictEqual(statusCode, 200);
+              assert.typeOf(res, 'object');
+              done()
+          });
+        });
+    });
+     /** Test pour modifier une pizza */
+    it('should get an updated pizza object', () => {
+        let pizza = new Pizza({ name: 'nomTest',
+          desc: 'descTest',
+          price: 10,
+          picture: 'pictureTest',
+          ingredients: [
+              '5a0dac413135c7470bf0d2c3'
+              ]});
+          return pizza.save().then((pizza)=>{
+            return chai.request(url)
+                .put('/pizza'+pizza.id)
+                .send({
+              name: 'nomTest',
+              desc: 'descTest',
+              price: 12,
+              picture: 'pictureTest',
+              ingredients: [
+                  '5a0dac413135c7470bf0d2c3'
+                  ]
+          })
+            .end((err, res)=>{
+                if(err) throw err;
+              assert.strictEqual(statusCode, 200);
+              assert.typeOf(res, 'object');
+                
+            })
+            })
+       /* pizza.save((err, pizza) => {
+            chai.request(url)
+              .put('/pizza/'+pizza.id)
+              .send({
+                  name: 'nomTest',
+                  desc: 'descTest',
+                  price: 12,
+                  picture: 'pictureTest',
+                  ingredients: [
+                      '5a0dac413135c7470bf0d2c3'
+                      ]
+              })
+              .end(function (err, res) {
+                if (err) done(err);
+                assert.typeOf(res, 'object');
+                done();
+            });
+        });*/
+    });
+        /** Test pour supprimer une pizza */
+        it('should get a deleted pizza object', (done) => {
+        let pizza = new Pizza({ name: 'nomTest',
+          desc: 'descTest',
+          price: 10,
+          picture: 'pictureTest',
+          ingredients: [
+              '5a0dac413135c7470bf0d2c3'
+              ]});
+        pizza.save((err, pizza) => {
+            chai.request(url)
+              .end(function (err, res) {
+                if (err) done(err);
+                assert.typeOf(res, 'object');
+                done();
+            });
+        });
+    });
+     /** Test pour récupérer toute les pizzas */
+    it('should get an array of pizzas', (done) => {
+        chai.request(url).get('/pizza').end(function (err, res) {
+            if (err) done(err);
+            assert.isArray(res);
+            done()
+        });
+    });
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ingredient.html">ingredient</a></li><li><a href="module-pizza.html">pizza</a></li><li><a href="module-server.html">server</a></li><li><a href="module-user.html">user</a></li></ul><h3>Classes</h3><ul><li><a href="module-ingredient-IngredientSchema.html">IngredientSchema</a></li><li><a href="module-pizza-PizzaSchema.html">PizzaSchema</a></li><li><a href="module-user-UserSchema.html">UserSchema</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Nov 19 2017 21:45:37 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
